@@ -1,0 +1,6 @@
+github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsTg=
+github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
+github.com/theprimeagen/vim-with-me v1.0.3 h1:lbwbGY6yWG6x3REWkb+/3wxzOKgyGpCnTAjaL58PnlM=
+github.com/theprimeagen/vim-with-me v1.0.3/go.mod h1:AhzUyNbt1zFftrKfjJme8q9pm0AcbhlGU9Ycl0ceSiI=
+gotest.tools/v3 v3.5.1 h1:EENdUnS3pdur5nybKYIh2Vfgc8IUNBjxDPSjtiJcOzU=
+gotest.tools/v3 v3.5.1/go.mod h1:isy3WKz7GK6uNw/sbHzfKBLvlvXwUyV06n6brMxxopU=
