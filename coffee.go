@@ -11,22 +11,22 @@ type Coffee struct {
 	ParticleSystem
 }
 
-func ascii(row, col int, counts [][]int) rune {
+func ascii(row, col int, counts [][]int) string {
     count := counts[row][col]
     if count < 3 {
-        return ' '
+        return " "
     }
     if count < 6 {
-        return '.'
+        return "."
     }
     if count < 9 {
-        return ':'
+        return ":"
     }
     if count < 12 {
-        return '{'
+        return "{"
     }
 
-    return '}'
+    return "}"
 }
 
 func reset(p *Particle, params *ParticleParams) {
@@ -53,12 +53,15 @@ func NewCoffee(width, height int) Coffee {
 	return Coffee{
 		ParticleSystem: NewParticleSystem(
 			ParticleParams{
-				MaxLife:       7,
+				MaxLife:       7000,
 				MaxSpeed:      0.5,
 				ParticleCount: 100,
 
 				reset:        reset,
 				ascii:        ascii, nextposition: nextPos,
+
+                X: width,
+                Y: height,
 			},
 		),
 	}

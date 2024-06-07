@@ -1,7 +1,10 @@
 package particles
 
 import (
+	"fmt"
 	"math"
+	"slices"
+	"strings"
 	"time"
 )
 
@@ -28,7 +31,7 @@ type ParticleParams struct {
 }
 
 type NextPositionFunc = func(particle *Particle, deltaMs int64)
-type Ascii func(row, col int, count [][]int) rune // return type: rune
+type Ascii func(row, col int, count [][]int) string // return type: rune
 type Reset func(particle *Particle, params *ParticleParams)
 
 type ParticleSystem struct {
@@ -39,9 +42,14 @@ type ParticleSystem struct {
 }
 
 func NewParticleSystem(params ParticleParams) ParticleSystem {
+    particles := make([]*Particle, 0)
+    for i:= 0; i < params.ParticleCount; i++ {
+        particles = append(particles, &Particle{})
+    }
 	return ParticleSystem{
 		ParticleParams: params,
 		lastTime:       time.Now().UnixMilli(),
+        particles: particles,
 	}
 }
 
@@ -65,7 +73,7 @@ func (ps *ParticleSystem) Update() {
 	}
 }
 
-func (ps *ParticleSystem) Display() [][]rune {
+func (ps *ParticleSystem) Display() string {
 	counts := make([][]int, 0)
 
 	for row := 0; row < ps.Y; row++ {
@@ -76,6 +84,8 @@ func (ps *ParticleSystem) Display() [][]rune {
 		counts = append(counts, count)
 	}
 
+    fmt.Printf("particles : %d %d %+v\n", ps.Y, ps.X, counts)
+
 	for _, p := range ps.particles {
 		row := int(math.Floor(p.Y))
 		col := int(math.Floor(p.X))
@@ -83,15 +93,21 @@ func (ps *ParticleSystem) Display() [][]rune {
 		counts[row][col]++
 	}
 
-	out := make([][]rune, 0)
+	out := make([][]string, 0)
 	for r, row := range counts {
-		outRow := make([]rune, 0)
+		outRow := make([]string, 0)
 		for c := range row {
 			outRow = append(outRow, ps.ascii(r, c, counts))
 		}
 
-		out = append(out, outRow)
+        out = append(out, outRow)
 	}
 
-	return out
+    slices.Reverse(out)
+    outStr := make([]string, 0)
+    for _, row := range out {
+        outStr = append(outStr, strings.Join(row, "\n"))
+    }
+
+	return strings.Join(outStr, "\n")
 }
